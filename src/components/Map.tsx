@@ -21,14 +21,24 @@ export default function Map() {
             const map = new window.kakao.maps.Map(mapContainer, mapOption);
 
             stores.DATA?.map((store) => {
-                var markerPosition = new window.kakao.maps.LatLng(store.y_dnts, store.x_cnts);
+                const imageSrc = store.bizcnd_code_nm
+                        ? `/images/markers/${store?.bizcnd_code_nm}.png`
+                        : "/images/markers/default.png",
+                    imageSize = new window.kakao.maps.Size(40, 40),
+                    imageOption = { offset: new window.kakao.maps.Point(27, 69) };
 
-                // 마커를 생성합니다
-                var marker = new window.kakao.maps.Marker({
+                const markerImage = new window.kakao.maps.MarkerImage(
+                        imageSrc,
+                        imageSize,
+                        imageOption
+                    ),
+                    markerPosition = new window.kakao.maps.LatLng(store.y_dnts, store.x_cnts);
+
+                const marker = new window.kakao.maps.Marker({
                     position: markerPosition,
+                    image: markerImage,
                 });
 
-                // 마커가 지도 위에 표시되도록 설정합니다
                 marker.setMap(map);
             });
         });
