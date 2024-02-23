@@ -2,12 +2,12 @@ import { SetStateAction, useCallback, useEffect } from "react";
 
 interface MarkersProps {
     map: any;
-    storeDatas: any[];
+    stores: any[];
     setCurrentStore: React.Dispatch<SetStateAction<any>>;
 }
-export default function Markers({ map, storeDatas, setCurrentStore }: MarkersProps) {
+export default function Markers({ map, stores, setCurrentStore }: MarkersProps) {
     const loadKakaoMarkers = useCallback(() => {
-        storeDatas?.map((store) => {
+        stores?.map((store) => {
             const imageSrc = store.bizcnd_code_nm
                     ? `/images/markers/${store?.bizcnd_code_nm}.png`
                     : "/images/markers/default.png",
@@ -45,7 +45,7 @@ export default function Markers({ map, storeDatas, setCurrentStore }: MarkersPro
                 setCurrentStore(store);
             });
         });
-    }, [map, setCurrentStore, storeDatas]);
+    }, [map, setCurrentStore, stores]);
     useEffect(() => {
         if (map) {
             loadKakaoMarkers();
