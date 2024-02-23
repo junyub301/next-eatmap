@@ -16,7 +16,6 @@ async function seedData() {
             foodCertifyName: store?.crtfc_gbn_nm,
         };
         const res = await prisma.store.create({ data: storeData });
-        console.log("🚀 ~ seedData ~ res:", res);
     });
 }
 
