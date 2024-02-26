@@ -32,7 +32,7 @@ export default function Login() {
                     <button
                         type="button"
                         className="text-white flex gap-2 bg-[#4285F4] hover:bg-[#4255F4]/90 font-medium rounded-lg w-full px-5 py-4 text-center items-center justify-center"
-                        onClick={() => signIn("google")}
+                        onClick={() => signIn("google", { callbackUrl: "/" })}
                     >
                         <AiOutlineGoogle className="w-6 h-6" />
                         Sign in with Google
@@ -40,7 +40,7 @@ export default function Login() {
                     <button
                         type="button"
                         className="text-white flex gap-3 bg-[#2db400] hover:bg-[#2db400]/90 font-medium rounded-lg w-full px-5 py-4 text-center items-center justify-center"
-                        onClick={() => signIn("naver")}
+                        onClick={() => signIn("naver", { callbackUrl: "/" })}
                     >
                         <SiNaver className="w-4 h-4" />
                         Sign in with Naver
@@ -48,6 +48,7 @@ export default function Login() {
                     <button
                         type="button"
                         className="text-black flex gap-2 bg-[#fef01b] hover:bg-[#fef01b]/90 font-medium rounded-lg w-full px-5 py-4 text-center items-center justify-center"
+                        onClick={() => signIn("kakao", { callbackUrl: "/" })}
                     >
                         <RiKakaoTalkFill className="w-6 h-6" />
                         Sign in with Kakao
