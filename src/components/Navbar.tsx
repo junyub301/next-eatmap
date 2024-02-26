@@ -2,9 +2,14 @@ import Link from "next/link";
 import { useState } from "react";
 import { BiMenu } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
+import { signOut, useSession } from "next-auth/react";
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState<boolean>(false);
+    const { data, status } = useSession();
+    console.log("🚀 ~ Navbar ~ status:", status);
+    console.log("🚀 ~ Navbar ~ data:", data);
+
     return (
         <div className="navbar">
             <Link href="/" className="navbar__logo">
@@ -20,9 +25,16 @@ export default function Navbar() {
                 <Link href="/users/likes" className="navbar__list--item">
                     찜한 가게
                 </Link>
-                <Link href="/users/login" className="navbar__list--item">
-                    로그인
-                </Link>
+
+                {status === "authenticated" ? (
+                    <button type="button" onClick={() => signOut()}>
+                        로그아웃
+                    </button>
+                ) : (
+                    <Link href="/api/auth/signin" className="navbar__list--item">
+                        로그인
+                    </Link>
+                )}
             </div>
             <div
                 className="navbar__button"
@@ -43,9 +55,15 @@ export default function Navbar() {
                         <Link href="/users/likes" className="navbar__list--item--mobile">
                             찜한 가게
                         </Link>
-                        <Link href="/users/login" className="navbar__list--item--mobile">
-                            로그인
-                        </Link>
+                        {status === "authenticated" ? (
+                            <button type="button" onClick={() => signOut()}>
+                                로그아웃
+                            </button>
+                        ) : (
+                            <Link href="/api/auth/signin" className="navbar__list--item">
+                                로그인
+                            </Link>
+                        )}
                     </div>
                 </div>
             )}
