@@ -1,5 +1,6 @@
 import Loader from "@/components/Loader";
 import Loading from "@/components/Loading";
+import SearchFilter from "@/components/SearchFilter";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 import { StoreType } from "@/interface";
 import axios from "axios";
@@ -64,6 +65,7 @@ export default function StoreListPage() {
 
     return (
         <div className="px-4 md:max-w-5xl mx-auto py-8">
+            <SearchFilter />
             {isLoading ? (
                 <Loading />
             ) : (
