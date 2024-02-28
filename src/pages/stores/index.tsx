@@ -1,29 +1,34 @@
 import Loader from "@/components/Loader";
 import Loading from "@/components/Loading";
+import SearchFilter from "@/components/SearchFilter";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 import { StoreType } from "@/interface";
 import axios from "axios";
 import Image from "next/image";
-import { useRouter } from "next/router";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useInfiniteQuery } from "react-query";
 
 export default function StoreListPage() {
-    const router = useRouter();
-    const { page = "1" }: { page?: string } = router.query;
     const ref = useRef<HTMLDivElement | null>(null);
     const pageRef = useIntersectionObserver(ref, {});
     const isPageEnd = !!pageRef?.isIntersecting;
+    const [q, setQ] = useState<string | null>(null);
+    const [district, setDistrict] = useState<string | null>(null);
 
-    const fetchStores = async ({ pageParma = 1 }) => {
-        const { data } = await axios(`/api/stores?page=${pageParma}`, {
+    const searchParams = { q, district };
+
+    const fetchStores = async ({ pageParam = 1 }) => {
+        const { data } = await axios(`/api/stores?page=${pageParam}`, {
             params: {
                 limit: 10,
-                pag: pageParma,
+                pag: pageParam,
+                ...searchParams,
             },
         });
+
         return data;
     };
+
     const {
         data: stores,
         isError,
@@ -32,7 +37,7 @@ export default function StoreListPage() {
         fetchNextPage,
         isFetchingNextPage,
         hasNextPage,
-    } = useInfiniteQuery("stores", () => fetchStores({ pageParma: parseInt(page) }), {
+    } = useInfiniteQuery(["stores", searchParams], fetchStores, {
         getNextPageParam: (lastPage: any) =>
             lastPage.data?.length > 0 ? lastPage.page + 1 : undefined,
     });
@@ -64,6 +69,7 @@ export default function StoreListPage() {
 
     return (
         <div className="px-4 md:max-w-5xl mx-auto py-8">
+            <SearchFilter setQ={setQ} setDistrict={setDistrict} />
             {isLoading ? (
                 <Loading />
             ) : (
