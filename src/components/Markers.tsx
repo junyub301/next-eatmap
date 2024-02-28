@@ -1,12 +1,15 @@
+import { currentStoreState, locationState, mapState } from "@/atom";
 import { StoreType } from "@/interface";
 import { SetStateAction, useCallback, useEffect } from "react";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
 interface MarkersProps {
-    map: any;
     stores: StoreType[];
-    setCurrentStore: React.Dispatch<SetStateAction<any>>;
 }
-export default function Markers({ map, stores, setCurrentStore }: MarkersProps) {
+export default function Markers({ stores }: MarkersProps) {
+    const map = useRecoilValue(mapState);
+    const setCurrentStore = useSetRecoilState(currentStoreState);
+    const [location, setLocation] = useRecoilState(locationState);
     const loadKakaoMarkers = useCallback(() => {
         stores?.map((store) => {
             const imageSrc = store.category
@@ -44,9 +47,15 @@ export default function Markers({ map, stores, setCurrentStore }: MarkersProps) 
 
             window.kakao.maps.event.addListener(marker, "click", function () {
                 setCurrentStore(store);
+                setLocation({
+                    ...location,
+                    lat: store.lat,
+                    lng: store.lng,
+                });
             });
         });
-    }, [map, setCurrentStore, stores]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [map, stores]);
     useEffect(() => {
         if (map) {
             loadKakaoMarkers();
