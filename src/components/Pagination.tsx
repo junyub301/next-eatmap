@@ -3,13 +3,14 @@ import Link from "next/link";
 interface PaginationProps {
     total: number;
     page: string;
+    pathname: string;
 }
-export default function Pagination({ total, page }: PaginationProps) {
+export default function Pagination({ total, page, pathname }: PaginationProps) {
     return (
         <div className="py-6 w-full px-10 flex justify-center gap-3 bg-white my-10 flex-wrap text-black">
             {total <= 10 ? (
                 [...Array(total)].map((x, i) => (
-                    <Link href={{ pathname: "stores", query: { page: i + 1 } }} key={i}>
+                    <Link href={{ pathname, query: { page: i + 1 } }} key={i}>
                         <span
                             className={`px-3 py-2 rounded border shadow-sm bg-white ${
                                 i + 1 === parseInt(page, 10)
