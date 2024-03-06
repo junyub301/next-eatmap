@@ -1,7 +1,7 @@
 import Loading from "@/components/Loading";
 import Pagination from "@/components/Pagination";
 import StoreList from "@/components/StoreList";
-import { Like, LikeApiResponse, StoreType } from "@/interface";
+import { Like, LikeApiResponse } from "@/interface";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
