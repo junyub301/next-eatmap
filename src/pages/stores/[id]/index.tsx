@@ -2,6 +2,7 @@ import Like from "@/components/Like";
 import Loader from "@/components/Loader";
 import Map from "@/components/Map";
 import Marker from "@/components/Marker";
+import Comments from "@/components/comments";
 import { StoreType } from "@/interface";
 import axios from "axios";
 import { useSession } from "next-auth/react";
@@ -143,10 +144,13 @@ export default function StoreDetail() {
                 </div>
             </div>
             {isSuccess && (
-                <div className="overflow-hidden w-full mb-20 max-w-5xl mx-auto max-h-[600px]">
-                    <Map lat={store.lat} lng={store.lng} zoom={1} />
-                    <Marker store={store} />
-                </div>
+                <>
+                    <div className="overflow-hidden w-full mb-20 max-w-5xl mx-auto max-h-[600px]">
+                        <Map lat={store.lat} lng={store.lng} zoom={1} />
+                        <Marker store={store} />
+                    </div>
+                    <Comments storeId={store.id} />
+                </>
             )}
         </>
     );

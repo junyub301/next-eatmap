@@ -35,9 +35,7 @@ export default function Likes() {
                             <StoreList i={index} store={like?.store} key={like.id} />
                         ))}
                     </ul>
-                    {likes?.totalPage && likes?.totalPage > 0 && (
-                        <Pagination total={likes.totalPage} page={page} pathname="/users/likes" />
-                    )}
+                    <Pagination total={likes?.totalPage} page={page} pathname="/users/likes" />
                 </>
             )}
         </div>
