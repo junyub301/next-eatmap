@@ -9,6 +9,7 @@ interface ResponseType {
     page?: string;
     limit?: string;
     storeId?: string;
+    user?: boolean;
 }
 
 export default async function handler(
@@ -16,7 +17,13 @@ export default async function handler(
     res: NextApiResponse<Comment | CommentApiResponse>
 ) {
     const session = await getServerSession(req, res, authOptions);
-    const { page = "1", limit = "10", storeId = "", id = "" }: ResponseType = req.query;
+    const {
+        page = "1",
+        limit = "10",
+        storeId = "",
+        id = "",
+        user = false,
+    }: ResponseType = req.query;
 
     if (req.method === "POST") {
         if (!session?.user) {
@@ -45,6 +52,7 @@ export default async function handler(
         const count = await prisma.comment.count({
             where: {
                 storeId: storeId ? parseInt(storeId) : {},
+                userId: user ? session?.user.id : {},
             },
         });
         const skipPage = parseInt(page) - 1;
@@ -53,11 +61,13 @@ export default async function handler(
             orderBy: { createdAt: "desc" },
             where: {
                 storeId: storeId ? parseInt(storeId) : {},
+                userId: user ? session?.user.id : {},
             },
             skip: skipPage * parseInt(limit),
             take: parseInt(limit),
             include: {
                 user: true,
+                store: true,
             },
         });
         return res.status(200).json({
