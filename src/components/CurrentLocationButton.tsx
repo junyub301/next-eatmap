@@ -1,7 +1,7 @@
+"use client";
 import { mapState } from "@/atom";
 import { useState } from "react";
 import { BiCurrentLocation } from "react-icons/bi";
-import { FaLastfmSquare } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { useRecoilValue } from "recoil";
 import FullPageLoader from "./FullPageLoader";

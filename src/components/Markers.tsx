@@ -1,3 +1,4 @@
+"use client";
 import { currentStoreState, locationState, mapState } from "@/atom";
 import { StoreType } from "@/interface";
 import { SetStateAction, useCallback, useEffect } from "react";

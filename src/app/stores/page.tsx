@@ -1,3 +1,5 @@
+"use client";
+
 import { searchState } from "@/atom";
 import Loader from "@/components/Loader";
 import Loading from "@/components/Loading";
@@ -6,9 +8,7 @@ import StoreList from "@/components/StoreList";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 import { StoreType } from "@/interface";
 import axios from "axios";
-import Image from "next/image";
-import { useRouter } from "next/router";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useInfiniteQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 
@@ -16,7 +16,6 @@ export default function StoreListPage() {
     const ref = useRef<HTMLDivElement | null>(null);
     const pageRef = useIntersectionObserver(ref, {});
     const isPageEnd = !!pageRef?.isIntersecting;
-    const router = useRouter();
     const searchValue = useRecoilValue(searchState);
 
     const searchParams = searchValue;

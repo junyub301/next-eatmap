@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
 import prisma from "@/db";
-import { authOptions } from "./auth/[...nextauth]";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { Comment, CommentApiResponse } from "@/interface";
 
 interface ResponseType {
