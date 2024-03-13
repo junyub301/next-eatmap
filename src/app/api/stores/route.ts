@@ -1,10 +1,8 @@
-import { NextResponse } from "next/server";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { StoreApiResponse, StoreType } from "@/interface";
-import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/db/index";
 import axios from "axios";
 import { getServerSession } from "next-auth";
+import { NextResponse } from "next/server";
+import authOptions from "../auth/[...nextauth]/auth";
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);

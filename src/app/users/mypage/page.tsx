@@ -7,9 +7,9 @@ import axios from "axios";
 import { signOut, useSession } from "next-auth/react";
 import { useQuery } from "react-query";
 
-export default function MyPage({ params }: { params: { page: string } }) {
+export default function MyPage({ searchParams }: { searchParams: { page: string } }) {
     const { data: session } = useSession();
-    const page = params.page || "1";
+    const page = searchParams.page || "1";
 
     const fetchComments = async () => {
         const { data } = await axios(`/api/comments?&limit=10&page=${page}&user=${true}`);

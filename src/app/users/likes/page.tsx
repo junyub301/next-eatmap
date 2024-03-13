@@ -6,8 +6,8 @@ import { Like, LikeApiResponse } from "@/interface";
 import axios from "axios";
 import { useQuery } from "react-query";
 
-export default function Likes({ params }: { params: { page: string } }) {
-    const page = params?.page || "1";
+export default function Likes({ searchParams }: { searchParams: { page: string } }) {
+    const page = searchParams?.page || "1";
     const fetchLikes = async () => {
         const { data } = await axios(`/api/likes?limit=10&page=${page}`);
         return data as LikeApiResponse;
