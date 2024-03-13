@@ -1,4 +1,5 @@
 import { StoreType } from "@/interface";
+import { event } from "@/lib/gtag";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
@@ -32,6 +33,12 @@ export default function Like({ storeId }: LikeProps) {
                 } else {
                     toast.warn("취소했습니다.");
                 }
+                event({
+                    action: "click_like",
+                    category: "like",
+                    label: like.status === 201 ? "create_like" : "delete_like",
+                    value: storeId,
+                });
                 refetch();
             } catch (error) {
                 console.error(error);
