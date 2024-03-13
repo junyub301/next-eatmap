@@ -14,7 +14,7 @@ export interface StoreType {
 export interface Like {
     id: number;
     storeId: number;
-    userId: number;
+    userId: string;
     store?: StoreType;
 }
 
@@ -26,14 +26,14 @@ export interface LikeApiResponse {
 export interface Comment {
     id: number;
     storeId: number;
-    userId: number;
+    userId: string;
     store?: StoreType;
     body: string;
     user?: User;
     createdAt: Date;
 }
 export interface User {
-    id: number;
+    id: string;
     email: string;
     name?: string | null;
     image?: string | null;

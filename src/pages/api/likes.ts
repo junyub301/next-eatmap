@@ -25,7 +25,7 @@ export default async function handler(
         let like = await prisma.like.findFirst({
             where: {
                 storeId,
-                userId: +session.user.id,
+                userId: session.user.id,
             },
         });
 
@@ -38,7 +38,7 @@ export default async function handler(
             like = await prisma.like.create({
                 data: {
                     storeId,
-                    userId: +session.user.id,
+                    userId: session.user.id,
                 },
             });
             return res.status(201).json(like);
@@ -47,14 +47,14 @@ export default async function handler(
         const { page = "1", limit = "10" }: ResponseType = req.query;
         const count = await prisma.like.count({
             where: {
-                userId: +session.user.id,
+                userId: session.user.id,
             },
         });
         const skipPage = parseInt(page) - 1;
         const likes = await prisma.like.findMany({
             orderBy: { createdAt: "desc" },
             where: {
-                userId: +session.user.id,
+                userId: session.user.id,
             },
             include: {
                 store: true,

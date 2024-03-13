@@ -34,7 +34,7 @@ export default async function handler(
             data: {
                 storeId,
                 body,
-                userId: +session.user.id,
+                userId: session.user.id,
             },
         });
         return res.status(200).json(comment);

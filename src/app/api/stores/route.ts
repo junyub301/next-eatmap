@@ -43,7 +43,7 @@ export async function GET(request: Request) {
             },
             include: {
                 likes: {
-                    where: session ? { userId: +session.user.id } : {},
+                    where: session ? { userId: session.user.id } : {},
                 },
             },
         });

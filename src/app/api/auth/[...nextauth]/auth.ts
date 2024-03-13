@@ -1,6 +1,7 @@
 import prisma from "@/db/index";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import { NextAuthOptions } from "next-auth";
+import { Adapter } from "next-auth/adapters";
 import GoogleProvider from "next-auth/providers/google";
 import KakaoProvider from "next-auth/providers/kakao";
 import NaverProvider from "next-auth/providers/naver";
@@ -11,7 +12,7 @@ const authOptions: NextAuthOptions = {
         maxAge: 60 * 60 * 24,
         updateAge: 60 * 60 * 2,
     },
-    adapter: PrismaAdapter(prisma),
+    adapter: PrismaAdapter(prisma) as Adapter,
 
     providers: [
         GoogleProvider({
