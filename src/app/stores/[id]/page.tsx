@@ -12,7 +12,12 @@ import { useRouter } from "next/navigation";
 import { useQuery } from "react-query";
 import { toast } from "react-toastify";
 
-export default function StoreDetail({ params }: { params: { id: string } }) {
+interface StoreDetailProps {
+    params: { id: string };
+    searchParams: { page: string };
+}
+
+export default function StoreDetail({ params, searchParams }: StoreDetailProps) {
     const router = useRouter();
     const { id } = params;
     const { status } = useSession();
@@ -150,7 +155,7 @@ export default function StoreDetail({ params }: { params: { id: string } }) {
                         <Map lat={store.lat} lng={store.lng} zoom={1} />
                         <Marker store={store} />
                     </div>
-                    <Comments storeId={store.id} />
+                    <Comments storeId={store.id} page={searchParams.page || "1"} />
                 </>
             )}
         </>

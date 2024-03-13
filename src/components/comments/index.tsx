@@ -8,13 +8,10 @@ import Pagination from "../Pagination";
 
 interface CommentsProps {
     storeId: number;
-    params?: {
-        page?: string;
-    };
+    page: string;
 }
-export default function Comments({ storeId, params }: CommentsProps) {
+export default function Comments({ storeId, page }: CommentsProps) {
     const { status } = useSession();
-    const page = params?.page || "1";
 
     const fetchComments = async () => {
         const { data } = await axios(`/api/comments?storeId=${storeId}&limit=10&page=${page}`);
